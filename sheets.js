@@ -3,12 +3,26 @@ const fs = require("fs");
 const path = require("path");
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
-const auth = new google.auth.GoogleAuth({
-  keyFile: path.join(__dirname, "my-project-mari-462322-6cccf42ef4cd.json"), // tu JSON de service account
-  scopes: SCOPES,
-});
 
-const sheets = google.sheets({ version: "v4", auth });
+
+ const credentialsUrl = process.env.CREDENTIALS_URL;
+  if (!credentialsUrl) throw new Error("Falta la variable CREDENTIALS_URL en Railway");
+
+  // Descargar el JSON de credenciales desde GCS
+  const res = await fetch(credentialsUrl);
+  if (!res.ok) {
+    throw new Error(`No se pudo descargar las credenciales: ${res.statusText}`);
+  }
+
+  const credentials = await res.json();
+
+  // Crear el auth con las credenciales descargadas
+  const auth = new google.auth.GoogleAuth({
+    credentials,
+    scopes: SCOPES,
+  });
+
+  const sheets = google.sheets({ version: "v4", auth });
 
 const SPREADSHEET_ID = process.env.SHEET_ID;
 

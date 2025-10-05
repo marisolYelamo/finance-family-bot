@@ -2,6 +2,7 @@ require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const cron = require("node-cron");
 const { agregarGasto, obtenerGastos, marcarPagado } = require("./sheets");
+const loadCredentials = require('./load-credentials.js')
 
 const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
