@@ -10,4 +10,4 @@ pnpm-debug.log*
 .env.*.local
 
 # Service account keys
-*.json
+my-project-mari-462322-6cccf42ef4cd.json
