@@ -1,7 +1,7 @@
 const { google } = require("googleapis");
 const fs = require("fs");
 const path = require("path");
-const fetch = requiere("node-fetch");
+const fetch = require("node-fetch");
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
